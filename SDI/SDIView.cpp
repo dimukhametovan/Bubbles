@@ -40,9 +40,6 @@ CSDIView::CSDIView() noexcept
 	// TODO: добавьте код создания
 	std::srand(time(NULL));
 
-	mx = (2 + rand() % 5)*2; //передвижение по х
-	my = (2 + rand() % 5)*2; //передвижение по у
-
 }
 
 CSDIView::~CSDIView()
@@ -70,8 +67,10 @@ void CSDIView::OnDraw(CDC* pDC)
 	CRect rect;
 	GetClientRect(&rect);
 
-
-	pDoc->m_circ.Draw(pDC);
+	for (int i = 0; i < pDoc->count; i++) {
+		pDoc->m_mycircle[i].Draw(pDC);
+	}
+	
 	/*pDC->MoveTo(0, rect.Height() / 2);
 	pDC->LineTo(rect.Width(), rect.Height()/2);
 	pDC->MoveTo(0, rect.Height() / 2);
@@ -152,7 +151,7 @@ CSDIDoc* CSDIView::GetDocument() const // встроена неотлаженн�
 void CSDIView::OnInitialUpdate()
 {
 	CView::OnInitialUpdate();
-	SetTimer(0, 10, NULL);
+	SetTimer(0, 100, NULL);
 	// TODO: добавьте специализированный код или вызов базового класса
 }
 
@@ -166,29 +165,12 @@ void CSDIView::OnTimer(UINT_PTR nIDEvent)
 	CRect rect;
 	GetClientRect(&rect);
 
-	pDoc->m_circ.m_iX += mx;
-	pDoc->m_circ.m_iY += my;
-
-	if (pDoc->m_circ.m_iY + pDoc->m_circ.m_iR >= rect.Height()) {
-		my *= -1;
-	}
-
-	if (pDoc->m_circ.m_iY - pDoc->m_circ.m_iR <= 0) {
-		my *= -1;
-	}
-
-	if (pDoc->m_circ.m_iX + pDoc->m_circ.m_iR >= rect.Width()) {
-		mx *= -1;
-	}
-
-	if (pDoc->m_circ.m_iX - pDoc->m_circ.m_iR <= 0) {
-		mx *= -1;
-	}
-
-	
-	
 	
 
+	for (int i = 0; i < pDoc->count; i++)
+	{
+		pDoc->m_mycircle[i].Randomxy(rect);
+	}
 	Invalidate();//перерисовка true - стирает прошлые данные
 
 	CView::OnTimer(nIDEvent);

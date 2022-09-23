@@ -3,7 +3,11 @@
 //
 
 
+
 #pragma once
+#include <vector>
+
+using namespace std;
 
 class CMyCircle
 {
@@ -12,7 +16,9 @@ public:
 	CMyCircle(int x, int y, int r);
 
 	int m_iX, m_iY, m_iR;
+	int mx, my;
 	void Draw(CDC* pDC);
+	void Randomxy(CRect& rect);
 };
 
 class CSDIDoc : public CDocument
@@ -23,8 +29,8 @@ protected: // создать только из сериализации
 
 // Атрибуты
 public:
-
-	int stepx, stepy;
+	vector <CMyCircle> m_mycircle;
+	int count;
 	int m_iVerstion;
 	CMyCircle m_circ;
 	

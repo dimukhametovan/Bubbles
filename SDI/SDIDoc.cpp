@@ -29,7 +29,10 @@ END_MESSAGE_MAP()
 
 CMyCircle::CMyCircle()
 {
+	
 
+	mx = (2 + rand() % 5) * 2; //передвижение по х
+	my = (2 + rand() % 5) * 2; //передвижение по у
 }
 
 CMyCircle::CMyCircle(int x, int y, int r)
@@ -46,6 +49,27 @@ void CMyCircle::Draw(CDC* pDc)
 	
 	pDc->MoveTo(m_iX + m_iR, m_iY);
 	pDc->AngleArc(m_iX, m_iY, m_iR, 0, 360);
+}
+
+void CMyCircle::Randomxy(CRect& rect)
+{
+	m_iX += mx;
+	m_iY += my;
+	if (m_iY + m_iR >= rect.Height()) {
+		my *= -1;
+	}
+
+	if (m_iY - m_iR <= 0) {
+		my *= -1;
+	}
+
+	if (m_iX + m_iR >= rect.Width()) {
+		mx *= -1;
+	}
+
+	if (m_iX - m_iR <= 0) {
+		mx *= -1;
+	}
 }
 // Создание или уничтожение CSDIDoc
 
@@ -66,10 +90,19 @@ BOOL CSDIDoc::OnNewDocument()
 
 	// TODO: добавьте код повторной инициализации
 	// (Документы SDI будут повторно использовать этот документ)
-	m_circ.m_iX = 100;
-	m_circ.m_iY = 200;
-	m_circ.m_iR = 25;
+	/*m_circ.m_iX = 50 + rand() % 400;
+	m_circ.m_iY = 50 + rand() % 400;
+	m_circ.m_iR = 25;*/
 
+	for (int i = 0; i < 2 + rand() % 5; i++) {
+		CMyCircle tempCircle;
+		tempCircle.m_iX = 50 + rand() % 400;
+		tempCircle.m_iY = 50 + rand() % 400;
+		tempCircle.m_iR = 25;
+		m_mycircle.push_back(tempCircle);
+		count = i+1;
+	}
+	
 
 
 	return TRUE;

@@ -44,7 +44,7 @@ protected:
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	DECLARE_MESSAGE_MAP()
 public:
-	int mx,my;
+	
 	virtual void OnInitialUpdate();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 };
