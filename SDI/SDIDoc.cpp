@@ -8,6 +8,8 @@
 // и поиска; позволяет совместно использовать код документа в данным проекте.
 #ifndef SHARED_HANDLERS
 #include "SDI.h"
+#include <stdlib.h> 
+#include <time.h>
 #endif
 
 #include "SDIDoc.h"
@@ -35,10 +37,13 @@ CMyCircle::CMyCircle(int x, int y, int r)
 	m_iX = x;
 	m_iY = y;
 	m_iR = r;
+	
+	
 }
 
 void CMyCircle::Draw(CDC* pDc)
 {
+	
 	pDc->MoveTo(m_iX + m_iR, m_iY);
 	pDc->AngleArc(m_iX, m_iY, m_iR, 0, 360);
 }
@@ -61,10 +66,10 @@ BOOL CSDIDoc::OnNewDocument()
 
 	// TODO: добавьте код повторной инициализации
 	// (Документы SDI будут повторно использовать этот документ)
-
 	m_circ.m_iX = 100;
 	m_circ.m_iY = 200;
-	m_circ.m_iR = 10;
+	m_circ.m_iR = 25;
+
 
 
 	return TRUE;
