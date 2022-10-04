@@ -19,6 +19,7 @@ public:
 	int mx, my;
 	void Draw(CDC* pDC);
 	void Randomxy(CRect& rect);
+	
 };
 
 class CSDIDoc : public CDocument

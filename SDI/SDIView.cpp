@@ -151,7 +151,7 @@ CSDIDoc* CSDIView::GetDocument() const // встроена неотлаженн�
 void CSDIView::OnInitialUpdate()
 {
 	CView::OnInitialUpdate();
-	SetTimer(0, 100, NULL);
+	SetTimer(0, 50, NULL);
 	// TODO: добавьте специализированный код или вызов базового класса
 }
 
@@ -169,6 +169,24 @@ void CSDIView::OnTimer(UINT_PTR nIDEvent)
 
 	for (int i = 0; i < pDoc->count; i++)
 	{
+		for (int k = i; k < pDoc->count; k++)
+		{
+			int firstx = pDoc->m_mycircle[i].m_iX;
+			int secondx = pDoc->m_mycircle[k].m_iX;
+			int firsty = pDoc->m_mycircle[i].m_iY;
+			int secondy = pDoc->m_mycircle[k].m_iY;
+			if (k != i)
+			{
+				if (sqrt(pow(abs(firstx - secondx), 2) + pow(abs(firsty - secondy), 2)) <= pDoc->m_mycircle[i].m_iR * 2)
+				{
+					pDoc->m_mycircle[i].mx *= -1;
+					pDoc->m_mycircle[k].mx *= -1;
+					pDoc->m_mycircle[i].my *= -1;
+					pDoc->m_mycircle[k].my *= -1;
+				}
+			}
+
+		}
 		pDoc->m_mycircle[i].Randomxy(rect);
 	}
 	Invalidate();//перерисовка true - стирает прошлые данные

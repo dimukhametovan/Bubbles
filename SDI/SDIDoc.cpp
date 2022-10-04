@@ -70,6 +70,7 @@ void CMyCircle::Randomxy(CRect& rect)
 	if (m_iX - m_iR <= 0) {
 		mx *= -1;
 	}
+	
 }
 // Создание или уничтожение CSDIDoc
 
@@ -94,7 +95,7 @@ BOOL CSDIDoc::OnNewDocument()
 	m_circ.m_iY = 50 + rand() % 400;
 	m_circ.m_iR = 25;*/
 
-	for (int i = 0; i < 2 + rand() % 5; i++) {
+	for (int i = 0; i < 2 + rand() % 10; i++) {
 		CMyCircle tempCircle;
 		tempCircle.m_iX = 50 + rand() % 400;
 		tempCircle.m_iY = 50 + rand() % 400;
