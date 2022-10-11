@@ -12,6 +12,8 @@
 #include <time.h>
 #endif
 
+#include "MyTreeView.h"
+
 #include "SDIDoc.h"
 
 #include <propkey.h>
@@ -89,13 +91,15 @@ BOOL CSDIDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
+	m_pTreeView->FillTree();
+
 	// TODO: добавьте код повторной инициализации
 	// (Документы SDI будут повторно использовать этот документ)
 	/*m_circ.m_iX = 50 + rand() % 400;
 	m_circ.m_iY = 50 + rand() % 400;
 	m_circ.m_iR = 25;*/
 
-	for (int i = 0; i < 2 + rand() % 10; i++) {
+	for (int i = 0; i < 2 + rand() % 5; i++) {
 		CMyCircle tempCircle;
 		tempCircle.m_iX = 50 + rand() % 400;
 		tempCircle.m_iY = 50 + rand() % 400;

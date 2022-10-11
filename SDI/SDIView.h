@@ -3,6 +3,7 @@
 //
 
 #pragma once
+class CSDIDoc;
 
 
 class CSDIView : public CView

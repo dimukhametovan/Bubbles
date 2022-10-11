@@ -151,7 +151,7 @@ CSDIDoc* CSDIView::GetDocument() const // встроена неотлаженн�
 void CSDIView::OnInitialUpdate()
 {
 	CView::OnInitialUpdate();
-	SetTimer(0, 50, NULL);
+	SetTimer(0, 100, NULL);
 	// TODO: добавьте специализированный код или вызов базового класса
 }
 

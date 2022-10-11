@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include "MyTreeView.h"
 
 class CMainFrame : public CFrameWndEx
 {
@@ -10,6 +11,7 @@ class CMainFrame : public CFrameWndEx
 protected: // создать только из сериализации
 	CMainFrame() noexcept;
 	DECLARE_DYNCREATE(CMainFrame)
+	CSplitterWnd m_wndSplitter;
 
 // Атрибуты
 public:
@@ -43,6 +45,7 @@ protected:
 	afx_msg LRESULT OnToolbarCreateNew(WPARAM wp, LPARAM lp);
 	DECLARE_MESSAGE_MAP()
 
+	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext);
 };
 
 

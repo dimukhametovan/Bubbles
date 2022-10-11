@@ -7,6 +7,8 @@
 #include "SDI.h"
 
 #include "MainFrm.h"
+#include"SDIView.h"
+#include"SDIDoc.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -222,3 +224,24 @@ BOOL CMainFrame::LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParent
 	return TRUE;
 }
 
+
+
+BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
+{
+	// TODO: добавьте специализированный код или вызов базового класса
+
+	m_wndSplitter.CreateStatic(this, 1, 2);
+
+	m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CMyTreeView), CSize(400, 0), pContext);
+	m_wndSplitter.CreateView(0, 1, RUNTIME_CLASS(CSDIView), CSize(0, 0), pContext);
+
+	SetActiveView((CView*)m_wndSplitter.GetPane(0, 1));
+
+	CSDIDoc* pDoc = (CSDIDoc*)GetActiveDocument();
+
+	pDoc->m_pTreeView = (CMyTreeView*)m_wndSplitter.GetPane(0, 0);
+
+	//pDoc->m_pTreeView->m_pDoc = pDoc;
+
+	return TRUE;
+}

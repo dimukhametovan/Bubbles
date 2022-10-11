@@ -7,6 +7,8 @@
 #pragma once
 #include <vector>
 
+class CMyTreeView;
+
 using namespace std;
 
 class CMyCircle
@@ -34,6 +36,7 @@ public:
 	int count;
 	int m_iVerstion;
 	CMyCircle m_circ;
+	CMyTreeView *m_pTreeView;
 	
 
 // Операции
