@@ -91,7 +91,22 @@ BOOL CSDIDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
+	CWnd* MainWnd = AfxGetMainWnd();
+
+	if (MainWnd)
+	{
+
+		//m_pTreeView = (CMyTreeView*)((CMainFrame*)MainWnd)->m_wndSplitter.GetPane(0, 0);
+
+		m_pTreeView->m_pDoc = this;
+		//m_pView = (CSDIAppView*)((CMainFrame*)MainWnd)->m_wndSplitter.GetPane(0, 1);
+
+	}
+
+
 	m_pTreeView->FillTree();
+
+	m_bLine1 = m_bLine2 = m_bLine3 = m_bColor1 = m_bColor2 = m_bColor3 = false;
 
 	// TODO: добавьте код повторной инициализации
 	// (Документы SDI будут повторно использовать этот документ)

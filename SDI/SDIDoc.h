@@ -37,6 +37,7 @@ public:
 	int m_iVerstion;
 	CMyCircle m_circ;
 	CMyTreeView *m_pTreeView;
+	bool m_bLine1, m_bLine2, m_bLine3, m_bColor1, m_bColor2, m_bColor3;
 	
 
 // Операции

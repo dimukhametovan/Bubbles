@@ -4,6 +4,7 @@
 #include "pch.h"
 #include "SDI.h"
 #include "MyTreeView.h"
+#include "SDIDoc.h"
 
 
 // CMyTreeView
@@ -21,6 +22,7 @@ CMyTreeView::~CMyTreeView()
 
 BEGIN_MESSAGE_MAP(CMyTreeView, CTreeView)
 	ON_WM_CREATE()
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -65,10 +67,88 @@ void CMyTreeView::FillTree()
 
 int CMyTreeView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	lpCreateStruct->style |= TVS_HASLINES | TVS_HASBUTTONS | TVS_LINESATROOT | TVS_SHOWSELALWAYS;
+	lpCreateStruct->style |= TVS_HASLINES | TVS_HASBUTTONS | TVS_LINESATROOT | TVS_SHOWSELALWAYS | TVS_CHECKBOXES;
 
 	if (CTreeView::OnCreate(lpCreateStruct) == -1)
 		return -1;
 	return 0;
+
+}
+
+
+void CMyTreeView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
+	CTreeCtrl& tree = GetTreeCtrl();
+	CTreeView::OnLButtonDown(nFlags, point);
+	CRect rc;
+	{
+		tree.GetItemRect(m_hLines, &rc, false);
+		if (rc.PtInRect(point))
+			tree.SelectItem(m_hLines);
+
+		tree.GetItemRect(m_hLine1, &rc, false);
+		if (rc.PtInRect(point))
+			tree.SelectItem(m_hLine1);
+
+		tree.GetItemRect(m_hLine2, &rc, false);
+		if (rc.PtInRect(point))
+			tree.SelectItem(m_hLine2);
+
+		tree.GetItemRect(m_hLine3, &rc, false);
+		if (rc.PtInRect(point))
+			tree.SelectItem(m_hLine3);
+	}
+
+	{
+		tree.GetItemRect(m_hColor, &rc, false);
+		if (rc.PtInRect(point))
+			tree.SelectItem(m_hColor);
+
+		tree.GetItemRect(m_hColor1, &rc, false);
+		if (rc.PtInRect(point))
+			tree.SelectItem(m_hColor1);
+
+		tree.GetItemRect(m_hColor2, &rc, false);
+		if (rc.PtInRect(point))
+			tree.SelectItem(m_hColor2);
+
+		tree.GetItemRect(m_hColor3, &rc, false);
+		if (rc.PtInRect(point))
+			tree.SelectItem(m_hColor3);
+	}
+
+	
+
+	if (tree.GetSelectedItem() == m_hLines)
+	{
+		bool check = tree.GetCheck(m_hLines);
+		tree.SetCheck(m_hLine1, check);
+		tree.SetCheck(m_hLine2, check);
+		tree.SetCheck(m_hLine3, check);
+
+	}
+	else
+		tree.SetCheck(m_hLines, false);
+
+	if (tree.GetSelectedItem() == m_hColor)
+	{
+		bool check = tree.GetCheck(m_hColor);
+		tree.SetCheck(m_hColor1, check);
+		tree.SetCheck(m_hColor2, check);
+		tree.SetCheck(m_hColor3, check);
+
+	}
+	else
+		tree.SetCheck(m_hColor, false);
+
+	m_pDoc->m_bLine1 = tree.GetCheck(m_hLine1);
+	m_pDoc->m_bLine2 = tree.GetCheck(m_hLine2);
+	m_pDoc->m_bLine3 = tree.GetCheck(m_hLine3);
+
+	m_pDoc->m_bColor1 = tree.GetCheck(m_hColor1);
+
+	m_pDoc->m_pTreeView->Invalidate();
+
 
 }

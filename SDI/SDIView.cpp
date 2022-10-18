@@ -13,6 +13,7 @@
 #include "SDIDoc.h"
 #include "SDIView.h"
 #include <math.h>
+#include "afxwin.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -67,9 +68,31 @@ void CSDIView::OnDraw(CDC* pDC)
 	CRect rect;
 	GetClientRect(&rect);
 
+	CPen newPen;
+	
+
+	if (pDoc->m_bLine1) 
+		newPen.CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
+	else if (pDoc->m_bLine2)
+		newPen.CreatePen(PS_SOLID, 2, RGB(0, 0, 0));
+	else if (pDoc->m_bLine3)
+		newPen.CreatePen(PS_SOLID, 3, RGB(0, 0, 0));
+	else 
+		newPen.CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
+
+	if (pDoc->m_bColor1)
+		newPen.CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+	else if (pDoc->m_bColor2)
+		newPen.CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
+	else if (pDoc->m_bColor3)
+		newPen.CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+	
+
+	CPen* oldPen = pDC->SelectObject(&newPen);
 	for (int i = 0; i < pDoc->count; i++) {
 		pDoc->m_mycircle[i].Draw(pDC);
 	}
+
 	
 	/*pDC->MoveTo(0, rect.Height() / 2);
 	pDC->LineTo(rect.Width(), rect.Height()/2);
